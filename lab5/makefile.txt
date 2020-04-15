@@ -1,0 +1,26 @@
+TARGET = lab5.exe
+CC = gcc
+
+.PHONY: edit run clean install uninstall valgrind
+
+edit: $(TARGET)		 
+	
+lab5.o: lab5.c
+				$(CC) -c lab5.c
+a.out: lab5.c 
+	gcc -g lab5.c
+	
+$(TARGET): lab5.o 
+				$(CC) -o $(TARGET) lab5.o
+valgrind: a.out
+	valgrind -q ./a.out
+splint:
+	splint *.c
+clean:
+			@rm -rf $(TARGET) *.o *.i *.s *.gch *.out *.exe
+install: $(TARGET) 
+			install $(TARGET) /
+run:
+			$(TARGET)
+uninstall:
+			@rm -rf /$(TARGET)
