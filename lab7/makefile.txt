@@ -1,0 +1,28 @@
+TARGET = program.exe
+CC = gcc
+
+.PHONY: edit run clean install uninstall valgrind
+
+edit: $(TARGET)		 
+	
+program.o: program.c program.h
+				$(CC) -c program.c
+
+a.out: program.c program.h
+	gcc -g program.c
+
+$(TARGET): program.o
+				$(CC) -o $(TARGET) program.o
+valgrind: a.out
+	valgrind -q ./a.out	
+	
+splint:
+	splint *.c
+clean:
+			@rm -rf $(TARGET) *.o *.i *.s *.gch *.out *.exe
+install: $(TARGET) 
+			install $(TARGET) /
+run:
+			$(TARGET)
+uninstall:
+			@rm -rf /$(TARGET)
